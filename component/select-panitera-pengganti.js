@@ -1,14 +1,14 @@
 import { ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
 
-export default function SelectKetuaMajelis({ type, setKetua }) {
+export default function SelectPaniteraPengganti({ setPanitera }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchKetuaMajelis() {
       try {
-        const res = await fetch("/api/ketua-majelis");
+        const res = await fetch("/api/panitera-pengganti");
         if (!res.ok) throw new Error("Failed to fetch");
 
         const result = await res.json();
@@ -27,13 +27,9 @@ export default function SelectKetuaMajelis({ type, setKetua }) {
     <div className="relative h-10 flex items-center w-full">
       <select
         className="appearance-none w-full flex items-center h-10 rounded-lg outline-green-600 border border-gray-600 p-2 pr-10 text-sm font-semibold "
-        onChange={(e) => setKetua(e.target.value)}
+        onChange={(e) => setPanitera(e.target.value)}
       >
-        {type === "filter" ? (
-          <option value="all">Semua</option>
-        ) : (
-          <option>Ketua Majelis</option>
-        )}
+        <option>Panitera Pengganti</option>
         {loading ? (
           <option disabled>Loading...</option>
         ) : (

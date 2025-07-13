@@ -28,7 +28,7 @@ export default function PidanaList() {
           Daftar Check In Pidana
         </button>
         <div className="w-fit">
-          <SelectKetuaMajelis />
+          <SelectKetuaMajelis type="filter" />
         </div>
       </div>
 

@@ -5,6 +5,7 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
 model User {
@@ -15,13 +16,32 @@ model User {
   updatedAt DateTime @updatedAt
 }
 
+model Pidana {
+  id                  Int                @id @default(autoincrement())
+  nomorPerkara        String
+  jaksaPenuntutUmum   String
+  terdakwa            String
+  keterangan          String?
+
+  ketuaMajelisId      Int
+  paniteraPenggantiId Int
+  ruangSidang         String
+
+  createdAt           DateTime           @default(now())
+  updatedAt           DateTime           @updatedAt
+
+  ketuaMajelis        KetuaMajelis       @relation(fields: [ketuaMajelisId], references: [id])
+  paniteraPengganti   PaniteraPengganti  @relation(fields: [paniteraPenggantiId], references: [id])
+}
 
 model KetuaMajelis {
   id        Int @id @default(autoincrement())
   name      String
+  pidana    Pidana[]
 }
 
 model PaniteraPengganti {
   id        Int @id @default(autoincrement())
   name      String
+  pidana    Pidana[]
 }
