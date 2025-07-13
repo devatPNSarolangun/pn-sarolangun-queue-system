@@ -2,14 +2,21 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export async function GET() {
+export async function GET(req) {
+  const { searchParams } = new URL(req.url);
+  const ketuaMajelisId = searchParams.get("ketuaMajelisId");
+
   try {
     const pidanas = await prisma.pidana.findMany({
+      where: ketuaMajelisId
+        ? { ketuaMajelisId: Number(ketuaMajelisId) } // assuming it's an int
+        : {}, // no filter if not provided
       include: {
         ketuaMajelis: true,
         paniteraPengganti: true,
       },
     });
+
     return Response.json(pidanas);
   } catch (err) {
     return Response.json(

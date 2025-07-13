@@ -1,0 +1,9 @@
+{
+  "cron": [
+    {
+      "path": "/api/reset-pidana",
+      "schedule": "0 7 * * *",
+      "region": "jakarta"
+    }
+  ]
+}

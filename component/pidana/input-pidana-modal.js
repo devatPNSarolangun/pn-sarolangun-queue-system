@@ -3,23 +3,21 @@ import SelectKetuaMajelis from "../select-ketua-majelis";
 import SelectPaniteraPengganti from "../select-panitera-pengganti";
 import { useState } from "react";
 
-export default function InputPidanaModal({ setShowInputModal }) {
+export default function InputPidanaModal({ setShowInputModal, getData }) {
   const [noPerkara, setNoPerkara] = useState();
   const [jaksa, setJaksa] = useState();
   const [terdakwa, setTerdakwa] = useState();
   const [ketua, setKetua] = useState();
   const [panitera, setPanitera] = useState();
-  const [ruangSidang, setRuangSidang] = useState();
+  const [ruangSidang, setRuangSidang] = useState("Ruang Sidang Cakra");
   const [keterangan, setKeterangan] = useState();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-
     const payload = {
       nomorPerkara: noPerkara,
       jaksaPenuntutUmum: jaksa,
       terdakwa: terdakwa,
-      keterangan: keterangan,
+      keterangan: keterangan || null,
       ketuaMajelisId: parseInt(ketua),
       paniteraPenggantiId: parseInt(panitera),
       ruangSidang: ruangSidang,
@@ -33,7 +31,8 @@ export default function InputPidanaModal({ setShowInputModal }) {
 
     if (res.ok) {
       console.log("✅ Record created");
-      setModalOpen(false);
+      setShowInputModal(false);
+      getData();
     } else {
       console.error("❌ Failed to create record");
     }
@@ -93,10 +92,15 @@ export default function InputPidanaModal({ setShowInputModal }) {
             <div className="w-2/5 ">Ruang Sidang</div>
             <div className="w-3/5">
               <div className="relative h-10 flex items-center w-full">
-                <select className="appearance-none w-full flex items-center h-10 rounded-lg outline-green-600 border border-gray-600 p-2 pr-10 text-sm font-semibold ">
-                  <option>Ruang Sidang Cakra</option>
-                  <option>Ruang Sidang Candra</option>
-                  <option>Ruang Sidang Anak</option>
+                <select
+                  className="appearance-none w-full flex items-center h-10 rounded-lg outline-green-600 border border-gray-600 p-2 pr-10 text-sm font-semibold "
+                  onChange={(e) => setRuangSidang(e.target.value)}
+                >
+                  <option value="Ruang Sidang Cakra">Ruang Sidang Cakra</option>
+                  <option value="Ruang Sidang Candra">
+                    Ruang Sidang Candra
+                  </option>
+                  <option value="Ruang Sidang Anak">Ruang Sidang Anak</option>
                 </select>
 
                 <ChevronDown
@@ -111,7 +115,8 @@ export default function InputPidanaModal({ setShowInputModal }) {
             <div className="w-3/5">
               <textarea
                 rows={3}
-                className="w-full h-10 bg-white rounded-lg border outline-green-600 border-gray-600 text-sm p-1.5"
+                className="w-full bg-white rounded-lg border outline-green-600 border-gray-600 text-sm p-1.5"
+                onChange={(e) => setKeterangan(e.target.value)}
               />
             </div>
           </div>

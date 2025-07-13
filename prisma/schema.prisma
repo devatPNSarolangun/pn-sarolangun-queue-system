@@ -22,14 +22,11 @@ model Pidana {
   jaksaPenuntutUmum   String
   terdakwa            String
   keterangan          String?
-
-  ketuaMajelisId      Int
-  paniteraPenggantiId Int
-  ruangSidang         String
-
+  ruangSidang         String?
   createdAt           DateTime           @default(now())
   updatedAt           DateTime           @updatedAt
-
+  ketuaMajelisId      Int
+  paniteraPenggantiId Int
   ketuaMajelis        KetuaMajelis       @relation(fields: [ketuaMajelisId], references: [id])
   paniteraPengganti   PaniteraPengganti  @relation(fields: [paniteraPenggantiId], references: [id])
 }

@@ -30,7 +30,7 @@ export default function SelectKetuaMajelis({ type, setKetua }) {
         onChange={(e) => setKetua(e.target.value)}
       >
         {type === "filter" ? (
-          <option value="all">Semua</option>
+          <option value="">Semua</option>
         ) : (
           <option>Ketua Majelis</option>
         )}
