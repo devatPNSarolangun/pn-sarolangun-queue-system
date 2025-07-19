@@ -1,4 +1,4 @@
-export default function Table({ columnKeyMap, columns, data }) {
+export default function Table({ columnKeyMap, columns, data, renderCell }) {
   console.log("Data", data);
 
   const getValue = (row, keyPath) => {
@@ -40,7 +40,9 @@ export default function Table({ columnKeyMap, columns, data }) {
                           key={col}
                           className="px-6 py-4 text-sm text-gray-600 whitespace-nowrap"
                         >
-                          {value ?? "-"}
+                          {renderCell && col === "Setting"
+                            ? renderCell(row)
+                            : value ?? "-"}
                         </td>
                       );
                     })}

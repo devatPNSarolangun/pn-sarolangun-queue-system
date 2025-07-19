@@ -1,7 +1,7 @@
 import { ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
 
-export default function SelectKetuaMajelis({ type, setKetua }) {
+export default function SelectKetuaMajelis({ type, ketua, setKetua }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -27,6 +27,7 @@ export default function SelectKetuaMajelis({ type, setKetua }) {
     <div className="relative h-10 flex items-center w-full">
       <select
         className="appearance-none w-full flex items-center h-10 rounded-lg outline-green-600 border border-gray-600 p-2 pr-10 text-sm font-semibold "
+        value={ketua}
         onChange={(e) => setKetua(e.target.value)}
       >
         {type === "filter" ? (

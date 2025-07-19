@@ -1,7 +1,7 @@
 import { ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
 
-export default function SelectPaniteraPengganti({ setPanitera }) {
+export default function SelectPaniteraPengganti({ panitera, setPanitera }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -27,6 +27,7 @@ export default function SelectPaniteraPengganti({ setPanitera }) {
     <div className="relative h-10 flex items-center w-full">
       <select
         className="appearance-none w-full flex items-center h-10 rounded-lg outline-green-600 border border-gray-600 p-2 pr-10 text-sm font-semibold "
+        value={panitera}
         onChange={(e) => setPanitera(e.target.value)}
       >
         <option>Panitera Pengganti</option>
