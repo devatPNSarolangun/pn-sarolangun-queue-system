@@ -1,6 +1,4 @@
 export default function Table({ columnKeyMap, columns, data, renderCell }) {
-  console.log("Data", data);
-
   const getValue = (row, keyPath) => {
     return keyPath
       .split(".")

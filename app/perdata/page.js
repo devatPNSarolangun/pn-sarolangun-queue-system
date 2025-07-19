@@ -1,35 +1,33 @@
 "use client";
 
-import InputPidanaModal from "@/component/pidana/input-pidana-modal";
+import InputPerdataModal from "@/component/perdata/input-perdata-modal";
 import SelectKetuaMajelis from "@/component/select-ketua-majelis";
 import Table from "@/component/table";
 import { Edit, Plus, Trash } from "lucide-react";
 import { useEffect, useState } from "react";
 
-export default function PidanaList() {
+export default function PerdataList() {
   const columns = [
     "Antrian",
     "No. Perkara",
-    "Jaksa Penuntun Umum",
-    "Terdakwa",
+    "Penggugat",
+    "Tergugat",
     "Ketua Majelis",
     "Panitera Pengganti",
     "Ruang Sidang",
     "Keterangan",
-    "Tanggal Dibuat",
     "Setting",
   ];
 
   const columnKeyMap = {
     Antrian: "antrian",
     "No. Perkara": "nomorPerkara",
-    "Jaksa Penuntun Umum": "jaksaPenuntutUmum",
-    Terdakwa: "terdakwa",
+    Penggugat: "penggugat",
+    Tergugat: "tergugat",
     "Ketua Majelis": "ketuaMajelis",
     "Panitera Pengganti": "paniteraPengganti",
     "Ruang Sidang": "ruangSidang",
     Keterangan: "keterangan",
-    "Tanggal Dibuat": "date",
     Setting: "setting", // Adjust or remove if needed
   };
 
@@ -42,7 +40,7 @@ export default function PidanaList() {
   const getData = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`/api/pidana?ketuaMajelisId=${filter || ""}`);
+      const res = await fetch(`/api/perdata?ketuaMajelisId=${filter || ""}`);
       if (!res.ok) throw new Error("Failed to fetch");
 
       const result = await res.json();
@@ -51,16 +49,12 @@ export default function PidanaList() {
         antrian: i + 1,
         id: item.id,
         nomorPerkara: item.nomorPerkara,
-        jaksaPenuntutUmum: item.jaksaPenuntutUmum,
-        terdakwa: item.terdakwa,
+        penggugat: item.penggugat,
+        tergugat: item.tergugat,
         ketuaMajelis: item.ketuaMajelis?.name || "-",
         paniteraPengganti: item.paniteraPengganti?.name || "-",
         ruangSidang: item.ruangSidang,
         keterangan: item.keterangan,
-        date: new Date(item.createdAt).toLocaleString("id-ID", {
-          dateStyle: "short",
-          timeStyle: "short",
-        }),
       }));
 
       setData(resultData);
@@ -74,7 +68,7 @@ export default function PidanaList() {
   const handleDelete = async (id) => {
     if (!confirm("Are you sure you want to delete this record?")) return;
     try {
-      const res = await fetch(`/api/pidana/${id}`, {
+      const res = await fetch(`/api/perdata/${id}`, {
         method: "DELETE",
       });
       if (!res.ok) throw new Error("Failed to delete");
@@ -87,7 +81,7 @@ export default function PidanaList() {
   const handleEdit = async (item) => {
     setEditData(null);
     try {
-      const res = await fetch(`/api/pidana/${item.id}`);
+      const res = await fetch(`/api/perdata/${item.id}`);
       if (!res.ok) throw new Error("Failed to fetch record");
       const fullData = await res.json();
 
@@ -105,7 +99,7 @@ export default function PidanaList() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-10">Daftar Check In Pidana</h2>
+      <h2 className="text-2xl font-bold mb-10">Daftar Check In Perdata</h2>
       <div className="flex gap-4 mb-10">
         <button
           className="w-fit flex items-center gap-2 text-white bg-green-700 rounded-lg p-2 text-sm font-semibold transition delay-150 duration-300 ease-in-out hover:-translate-y-0.5 hover:scale-105 hover:bg-green-800 cursor-pointer"
@@ -115,7 +109,7 @@ export default function PidanaList() {
           }}
         >
           <Plus width={18} />
-          Daftar Check In Pidana
+          Daftar Check In Perdata
         </button>
         <div className="w-fit">
           <SelectKetuaMajelis type="filter" setKetua={setFilter} />
@@ -168,7 +162,7 @@ export default function PidanaList() {
       )}
 
       {showInputModal && (
-        <InputPidanaModal
+        <InputPerdataModal
           setShowInputModal={setShowInputModal}
           getData={getData}
           editData={editData}

@@ -10,12 +10,12 @@ if (process.env.NODE_ENV !== "production") {
 // Tell Next.js this API route is dynamic
 export const dynamic = "force-dynamic";
 
-async function resetPidana() {
+async function resetPerdata() {
   try {
-    await prisma.pidana.deleteMany();
-    return Response.json({ success: true, message: "Pidana table reset" });
+    await prisma.perdata.deleteMany();
+    return Response.json({ success: true, message: "Perdata table reset" });
   } catch (error) {
-    console.error("❌ Error resetting pidana:", error);
+    console.error("❌ Error resetting perdata:", error);
     return Response.json(
       { success: false, error: error.message },
       { status: 500 }
@@ -26,9 +26,9 @@ async function resetPidana() {
 }
 
 export async function POST() {
-  return resetPidana();
+  return resetPerdata();
 }
 
 export async function GET() {
-  return resetPidana(); // Allow browser testing
+  return resetPerdata(); // Allow browser testing
 }

@@ -3,14 +3,14 @@ import SelectKetuaMajelis from "../select-ketua-majelis";
 import SelectPaniteraPengganti from "../select-panitera-pengganti";
 import { useEffect, useState } from "react";
 
-export default function InputPidanaModal({
+export default function InputPerdataModal({
   setShowInputModal,
   getData,
   editData,
 }) {
   const [noPerkara, setNoPerkara] = useState("");
-  const [jaksa, setJaksa] = useState("");
-  const [terdakwa, setTerdakwa] = useState("");
+  const [penggugat, setPenggugat] = useState("");
+  const [tergugat, setTergugat] = useState("");
   const [ketua, setKetua] = useState("");
   const [panitera, setPanitera] = useState("");
   const [ruangSidang, setRuangSidang] = useState("Ruang Sidang Cakra");
@@ -19,8 +19,8 @@ export default function InputPidanaModal({
   useEffect(() => {
     if (editData) {
       setNoPerkara(editData.nomorPerkara || "");
-      setJaksa(editData.jaksaPenuntutUmum || "");
-      setTerdakwa(editData.terdakwa || "");
+      setPenggugat(editData.penggugat || "");
+      setTergugat(editData.tergugat || "");
       setKetua(editData.ketuaMajelis?.id || "");
       setPanitera(editData.paniteraPengganti?.id || "");
       setRuangSidang(editData.ruangSidang || "Ruang Sidang Cakra");
@@ -31,15 +31,15 @@ export default function InputPidanaModal({
   const handleSubmit = async () => {
     const payload = {
       nomorPerkara: noPerkara,
-      jaksaPenuntutUmum: jaksa,
-      terdakwa: terdakwa,
+      penggugat: penggugat,
+      tergugat: tergugat,
       keterangan: keterangan || null,
       ketuaMajelisId: parseInt(ketua),
       paniteraPenggantiId: parseInt(panitera),
       ruangSidang: ruangSidang,
     };
 
-    const endpoint = editData ? `/api/pidana/${editData.id}` : "/api/pidana";
+    const endpoint = editData ? `/api/perdata/${editData.id}` : "/api/perdata";
     const method = editData ? "PUT" : "POST";
 
     try {
@@ -82,24 +82,24 @@ export default function InputPidanaModal({
             </div>
           </div>
           <div className="w-full flex">
-            <div className="w-2/5 ">Jaksa Penuntut Umum</div>
+            <div className="w-2/5 ">Penggugat</div>
             <div className="w-3/5">
               <input
                 type="text"
                 className="w-full h-10 bg-white rounded-lg border outline-green-600 border-gray-600 text-sm p-1.5"
-                value={jaksa}
-                onChange={(e) => setJaksa(e.target.value)}
+                value={penggugat}
+                onChange={(e) => setPenggugat(e.target.value)}
               />
             </div>
           </div>
           <div className="w-full flex">
-            <div className="w-2/5 ">Terdakwa</div>
+            <div className="w-2/5 ">Tergugat</div>
             <div className="w-3/5">
               <input
                 type="text"
                 className="w-full h-10 bg-white rounded-lg border outline-green-600 border-gray-600 text-sm p-1.5"
-                value={terdakwa}
-                onChange={(e) => setTerdakwa(e.target.value)}
+                value={tergugat}
+                onChange={(e) => setTergugat(e.target.value)}
               />
             </div>
           </div>

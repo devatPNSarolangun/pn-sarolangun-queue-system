@@ -31,14 +31,31 @@ model Pidana {
   paniteraPengganti   PaniteraPengganti  @relation(fields: [paniteraPenggantiId], references: [id])
 }
 
+model Perdata {
+  id                  Int                @id @default(autoincrement())
+  nomorPerkara        String
+  penggugat           String
+  tergugat            String
+  keterangan          String?
+  ruangSidang         String?
+  createdAt           DateTime           @default(now())
+  updatedAt           DateTime           @updatedAt
+  ketuaMajelisId      Int
+  paniteraPenggantiId Int
+  ketuaMajelis        KetuaMajelis       @relation(fields: [ketuaMajelisId], references: [id])
+  paniteraPengganti   PaniteraPengganti  @relation(fields: [paniteraPenggantiId], references: [id])
+}
+
 model KetuaMajelis {
   id        Int @id @default(autoincrement())
   name      String
   pidana    Pidana[]
+  perdata   Perdata[]
 }
 
 model PaniteraPengganti {
   id        Int @id @default(autoincrement())
   name      String
   pidana    Pidana[]
+  perdata   Perdata[]
 }
