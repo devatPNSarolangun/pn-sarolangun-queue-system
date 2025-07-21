@@ -16,6 +16,7 @@ export default function PerdataList() {
     "Panitera Pengganti",
     "Ruang Sidang",
     "Keterangan",
+    "Tanggal Dibuat",
     "Setting",
   ];
 
@@ -28,6 +29,7 @@ export default function PerdataList() {
     "Panitera Pengganti": "paniteraPengganti",
     "Ruang Sidang": "ruangSidang",
     Keterangan: "keterangan",
+    "Tanggal Dibuat": "date",
     Setting: "setting", // Adjust or remove if needed
   };
 
@@ -55,6 +57,10 @@ export default function PerdataList() {
         paniteraPengganti: item.paniteraPengganti?.name || "-",
         ruangSidang: item.ruangSidang,
         keterangan: item.keterangan,
+        date: new Date(item.createdAt).toLocaleString("id-ID", {
+          dateStyle: "short",
+          timeStyle: "short",
+        }),
       }));
 
       setData(resultData);
